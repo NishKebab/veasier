@@ -44,8 +44,7 @@ function fontToVScale(fontGrade) {
 }
 
 function replaceFontGrades() {
-  const shortPatterns = /5\+|6[abc](?!\+)|7[abc](?!\+)|8[abc](?!\+)|9a/gi;
-  const longPatterns = /6[abc]\+|7[abc]\+|8[abc]\+/gi;
+  const regex = /6[abc]\+|7[abc]\+|8[abc]\+|5\+|6[abc](?!\+)|7[abc](?!\+)|8[abc](?!\+)|9a/gi;
 
   const textNodes = [];
 
@@ -64,12 +63,7 @@ function replaceFontGrades() {
   textNodes.forEach((node) => {
     let text = node.textContent;
 
-    text = text.replace(longPatterns, (match) => {
-      const vScaleEquivalent = fontToVScale(match);
-      return vScaleEquivalent ? `${match} (${vScaleEquivalent})` : match;
-    });
-
-    text = text.replace(shortPatterns, (match) => {
+    text = text.replace(regex, (match) => {
       const vScaleEquivalent = fontToVScale(match);
       return vScaleEquivalent ? `${match} (${vScaleEquivalent})` : match;
     });
